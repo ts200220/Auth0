@@ -1,4 +1,4 @@
-# 保護 API（/api/me）とセッション（ハンズオン）
+# 保護 APIとセッション
 
 | サービス | 内容 |
 |----------|------|
@@ -9,11 +9,20 @@
 
 ## 起動
 
+01 の `workspace1` が 3000 を使っている場合は先に止める:
+
+```bash
+# workspace1 側
+docker compose stop web
+```
+
 ラボのルート（この README があるディレクトリ）で:
 
 ```bash
 docker compose up -d web
 ```
+
+`.env` の値に `"..."` が残っていると `DomainResolutionError` になります（両端の `"` を外す）。
 
 ## CLI（App / .env）
 
