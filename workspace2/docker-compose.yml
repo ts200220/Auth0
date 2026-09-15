@@ -1,0 +1,51 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: auth0-workspace2-next:02
+    working_dir: /workspace/web
+    volumes:
+      - .:/workspace
+      - web_node_modules:/workspace/web/node_modules
+      - web_next:/workspace/web/.next
+    ports:
+      - "3000:3000"
+    environment:
+      XDG_CONFIG_HOME: /home/node/.config
+      HOME: /home/node
+      NEXT_TELEMETRY_DISABLED: "1"
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
+    user: "0:0"
+    entrypoint: ["/usr/local/bin/docker-entrypoint-web.sh"]
+
+  lab:
+    image: auth0-workspace2-next:02
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    user: "0:0"
+    volumes:
+      - .:/workspace
+      - ./.auth0-config:/home/node/.config/auth0
+      - web_node_modules:/workspace/web/node_modules
+    environment:
+      XDG_CONFIG_HOME: /home/node/.config
+      HOME: /home/node
+    profiles:
+      - cli
+    entrypoint: ["bash"]
+    command:
+      - -lc
+      - |
+        mkdir -p /home/node/.config/auth0
+        chown -R node:node /home/node/.config/auth0 /workspace/web/node_modules 2>/dev/null || true
+        exec gosu node bash
+
+volumes:
+  web_node_modules:
+  web_next:
