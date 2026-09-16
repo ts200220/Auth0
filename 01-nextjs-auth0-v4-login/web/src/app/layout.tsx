@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "workspace1",
+  title: "01-nextjs-auth0-v4-login",
   description: "Auth0 × Next.js login lab",
 };
 

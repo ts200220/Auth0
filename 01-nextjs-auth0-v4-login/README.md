@@ -34,7 +34,7 @@ auth0 qs setup --app --type regular --framework nextjs --name my-next-01 --port 
 ## フォルダ一覧（要約）
 
 ```text
-workspace1/                           # ラボのルート（相対パス）
+01-nextjs-auth0-v4-login/             # ラボのルート（相対パス）
 ├── docker-compose.yml / Dockerfile   # 実行環境
 ├── scripts/check.sh                  # 前提チェック
 ├── scripts/docker-entrypoint-web.sh  # web 起動

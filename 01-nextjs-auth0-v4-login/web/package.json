@@ -1,5 +1,5 @@
 {
-  "name": "workspace1-web",
+  "name": "01-nextjs-auth0-v4-login-web",
   "private": true,
   "version": "0.1.0",
   "scripts": {

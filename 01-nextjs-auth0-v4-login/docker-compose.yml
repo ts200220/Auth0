@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: auth0-workspace1-next:01
+    image: auth0-01-nextjs-auth0-v4-login:01
     working_dir: /workspace/web
     volumes:
       - .:/workspace
@@ -21,7 +21,7 @@ services:
     entrypoint: ["/usr/local/bin/docker-entrypoint-web.sh"]
 
   lab:
-    image: auth0-workspace1-next:01
+    image: auth0-01-nextjs-auth0-v4-login:01
     build:
       context: .
       dockerfile: Dockerfile

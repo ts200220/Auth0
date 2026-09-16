@@ -1,4 +1,4 @@
-# workspace1 — Next.js + Auth0 CLI（Zenn 01 / ログイン）
+# 01-nextjs-auth0-v4-login — Next.js + Auth0 CLI（Zenn 01 / ログイン）
 FROM node:22-bookworm-slim
 
 ARG AUTH0_CLI_VERSION=latest
