@@ -26,7 +26,7 @@ bash scripts/check.sh
 auth0 login
 auth0 tenants use
 cd /workspace/web
-auth0 qs setup --app --type regular --framework nextjs --name my-next --port 3000 --no-input
+auth0 qs setup --app --type regular --framework nextjs --name my-next-01 --port 3000 --no-input
 ```
 
 → http://localhost:3000 → Log in / Log out
