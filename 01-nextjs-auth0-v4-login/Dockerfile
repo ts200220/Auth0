@@ -38,8 +38,7 @@ ENV XDG_CONFIG_HOME=/home/node/.config \
 WORKDIR /workspace
 
 COPY scripts/docker-entrypoint-web.sh /usr/local/bin/docker-entrypoint-web.sh
-RUN sed -i 's/\r$//' /usr/local/bin/docker-entrypoint-web.sh \
-  && chmod +x /usr/local/bin/docker-entrypoint-web.sh \
+RUN chmod +x /usr/local/bin/docker-entrypoint-web.sh \
   && mkdir -p /home/node/.config/auth0 \
   && chown -R node:node /home/node
 
