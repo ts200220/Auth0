@@ -1,7 +1,6 @@
 # 同一テナント SSO（App A / App B）
 
-前提: **Linux ホスト**（bash）+ Docker Engine / Compose。  
-Windows / macOS / PowerShell / Git Bash 向けの手順は扱いません。  
+前提: **Linux ホスト**（bash）+ Docker Engine / Compose。    
 コマンドはラボのルート（この README / `docker-compose.yml` があるディレクトリ）で実行します。
 
 | サービス | 内容 |
