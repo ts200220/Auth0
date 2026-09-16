@@ -1,0 +1,8 @@
+.git
+.auth0-config
+web/node_modules
+web/.next
+web-b/node_modules
+web-b/.next
+*.md
+!README.md

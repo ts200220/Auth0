@@ -1,0 +1,87 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: auth0-02-sso-app-a-b:02
+    working_dir: /workspace/web
+    volumes:
+      - .:/workspace
+      - web_node_modules:/workspace/web/node_modules
+      - web_next:/workspace/web/.next
+    ports:
+      - "3000:3000"
+    environment:
+      APP_DIR: /workspace/web
+      PORT: "3000"
+      XDG_CONFIG_HOME: /home/node/.config
+      HOME: /home/node
+      NEXT_TELEMETRY_DISABLED: "1"
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
+    user: "0:0"
+    # ホスト側が CRLF でも動くよう、マウントされたスクリプトを LF 化してから実行
+    entrypoint:
+      - bash
+      - -lc
+      - |
+        sed 's/\r$//' /workspace/scripts/docker-entrypoint-web.sh > /tmp/docker-entrypoint-web.sh
+        exec bash /tmp/docker-entrypoint-web.sh
+
+  # イメージは web の build を共有（同じ tag で並行 build すると already exists になる）
+  web-b:
+    image: auth0-02-sso-app-a-b:02
+    depends_on:
+      - web
+    working_dir: /workspace/web-b
+    volumes:
+      - .:/workspace
+      - web_b_node_modules:/workspace/web-b/node_modules
+      - web_b_next:/workspace/web-b/.next
+    ports:
+      - "3001:3001"
+    environment:
+      APP_DIR: /workspace/web-b
+      PORT: "3001"
+      XDG_CONFIG_HOME: /home/node/.config
+      HOME: /home/node
+      NEXT_TELEMETRY_DISABLED: "1"
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
+    user: "0:0"
+    entrypoint:
+      - bash
+      - -lc
+      - |
+        sed 's/\r$//' /workspace/scripts/docker-entrypoint-web.sh > /tmp/docker-entrypoint-web.sh
+        exec bash /tmp/docker-entrypoint-web.sh
+
+  lab:
+    image: auth0-02-sso-app-a-b:02
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    user: "0:0"
+    volumes:
+      - .:/workspace
+      - ./.auth0-config:/home/node/.config/auth0
+      - web_node_modules:/workspace/web/node_modules
+      - web_b_node_modules:/workspace/web-b/node_modules
+    environment:
+      XDG_CONFIG_HOME: /home/node/.config
+      HOME: /home/node
+    profiles:
+      - cli
+    entrypoint: ["gosu", "node", "bash", "-lc"]
+    command:
+      - |
+        # マウントされた *.sh の CRLF を除去（$'\r': command not found 対策）
+        find /workspace/scripts -name '*.sh' -exec sed -i 's/\r$//' {} +
+        mkdir -p /home/node/.config/auth0
+        exec bash
+
+volumes:
+  web_node_modules:
+  web_next:
+  web_b_node_modules:
+  web_b_next:

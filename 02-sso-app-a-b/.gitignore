@@ -1,0 +1,10 @@
+web/.env
+web/.env.local
+web/node_modules/
+web/.next/
+web-b/.env
+web-b/.env.local
+web-b/node_modules/
+web-b/.next/
+.auth0-config/
+*.log
