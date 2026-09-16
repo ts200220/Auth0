@@ -1,7 +1,6 @@
 # Next.js × Auth0 SDK v4 でログインする
 
 前提: **Linux ホスト**（bash）+ Docker Engine / Compose。  
-Windows / macOS / PowerShell / Git Bash 向けの手順は扱いません。  
 コマンドはラボのルート（この README / `docker-compose.yml` があるディレクトリ）で実行します。
 
 | サービス | 内容 |
