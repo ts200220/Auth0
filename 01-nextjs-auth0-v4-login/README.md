@@ -9,7 +9,7 @@
 | `lab` | Auth0 CLI（`auth0 login` / `qs setup`） |
 
 手順の詳細・失敗表は Zenn 記事  
-[`articles/zenn/01-nextjs-auth0-v4-login.md`](https://zenn.dev/ts200/articles/843f0696393843) を正とします。
+[`Auth0 CLI × Next.js SDK v4 でログインする`](https://zenn.dev/ts200/articles/843f0696393843) を正とします。
 
 
 ## 起動
