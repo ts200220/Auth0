@@ -10,7 +10,7 @@
 | `lab` | Auth0 CLI（`auth0 login` / `qs setup` / `setup-app-b.sh`） |
 
 手順の詳細は Zenn 記事  
-[`articles/zenn/02-sso-app-a-b.md`](../articles/zenn/02-sso-app-a-b.md) を正とします。
+[`Auth0 CLI：同一テナント SSO（App A / App B）`](https://zenn.dev/ts200/articles/f4a86968810e2e) を正とします。
 
 ## 起動
 
