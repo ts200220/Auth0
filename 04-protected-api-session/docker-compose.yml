@@ -1,0 +1,54 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: auth0-04-protected-api-session:04
+    working_dir: /workspace/web
+    volumes:
+      - .:/workspace
+      - web_node_modules:/workspace/web/node_modules
+      - web_next:/workspace/web/.next
+    ports:
+      - "3000:3000"
+    environment:
+      XDG_CONFIG_HOME: /home/node/.config
+      HOME: /home/node
+      NEXT_TELEMETRY_DISABLED: "1"
+      WATCHPACK_POLLING: "true"
+      CHOKIDAR_USEPOLLING: "true"
+    user: "0:0"
+    # ホストが CRLF でも動くよう、マウントされたスクリプトを LF 化してから実行
+    entrypoint:
+      - bash
+      - -lc
+      - |
+        sed 's/\r$//' /workspace/scripts/docker-entrypoint-web.sh > /tmp/docker-entrypoint-web.sh
+        exec bash /tmp/docker-entrypoint-web.sh
+
+  # イメージは web の build を共有（同じ tag で並列 build すると already exists になる）
+  lab:
+    image: auth0-04-protected-api-session:04
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    user: "0:0"
+    volumes:
+      - .:/workspace
+      - ./.auth0-config:/home/node/.config/auth0
+      - web_node_modules:/workspace/web/node_modules
+    environment:
+      XDG_CONFIG_HOME: /home/node/.config
+      HOME: /home/node
+    profiles:
+      - cli
+    entrypoint: ["gosu", "node", "bash", "-lc"]
+    command:
+      - |
+        find /workspace/scripts -name '*.sh' -exec sed -i 's/\r$//' {} +
+        mkdir -p /home/node/.config/auth0
+        exec bash
+
+volumes:
+  web_node_modules:
+  web_next:
